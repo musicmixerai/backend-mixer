@@ -1,8 +1,7 @@
-FROM amazoncorretto:21-alpine-jdk
-ADD . .
+FROM openjdk:17-jdk-slim
 WORKDIR /
+COPY . .
 RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
-RUN cp target/mixer-gateway-*.jar app.jar
-
+COPY target/mixer-gateway-*.jar app.jar
 ENTRYPOINT ["java","-jar","app.jar"]
