@@ -1,7 +1,4 @@
 FROM openjdk:17-jdk-slim
-WORKDIR /
-COPY . .
-RUN chmod +x mvnw
-RUN ./mvnw clean package -DskipTests
+WORKDIR /app
 COPY target/mixer-gateway-*.jar app.jar
 ENTRYPOINT ["java","-jar","app.jar"]
