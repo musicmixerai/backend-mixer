@@ -27,14 +27,12 @@
         <firebase.version>9.3.0</firebase.version>
         <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
         <jetbrains-annotations.version>24.1.0</jetbrains-annotations.version>
-        <liquibase.version>4.27.0</liquibase.version>
         <logbook.version>3.9.0</logbook.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <openapi4j.version>1.0.7</openapi4j.version>
 
         <!-- Test -->
         <instancio.version>4.8.0</instancio.version>
-        <testcontainers.version>1.19.8</testcontainers.version>
         <wiremock.version>3.6.0</wiremock.version>
 
         <!-- Plugins -->
@@ -72,21 +70,10 @@
             <version>${logbook.version}</version>
         </dependency>
 
-
         <!-- Database -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-            <version>${liquibase.version}</version>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
 
         <!-- Validation -->
@@ -161,7 +148,6 @@
             <version>${jetbrains-annotations.version}</version>
         </dependency>
 
-
         <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -171,18 +157,6 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${testcontainers.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>${testcontainers.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -232,11 +206,6 @@
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok-mapstruct-binding</artifactId>
                             <version>${lombok-mapstruct-binding.version}</version>
-                        </path>
-                        <path>
-                            <groupId>org.hibernate.orm</groupId>
-                            <artifactId>hibernate-jpamodelgen</artifactId>
-                            <version>${hibernate.version}</version>
                         </path>
                     </annotationProcessorPaths>
                     <compilerArgs>
