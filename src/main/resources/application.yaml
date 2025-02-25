@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: ${PORT:80}
 
 spring:
   security:
@@ -8,24 +8,20 @@ spring:
         jwt:
           jwk-set-uri: https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com
           issuer-uri: https://securetoken.google.com/musicmixerai
-  jpa:
-    show-sql: true
+  
+  data:
+    mongodb:
+      uri: ${DATABASE_URL:mongodb+srv://antoniomeic80:NPLmcVRSXNfnj8uv@cluster0.mongodb.net/mixerfm?retryWrites=true&w=majority}
 
   application.name: mixer-gateway
   cloud:
     openfeign:
       circuitbreaker:
         enabled: true
-  liquibase:
-    change-log: database/changelogs.xml
-    enabled: true
+  liquibase.enabled: false
   jpa.open-in-view: false
   thymeleaf.check-template-location: false
   jackson.default-property-inclusion: non_null
-  datasource:
-    url: ${SERVICE_DATABASE_URL:jdbc:postgresql://localhost:15430/mixer-gateway}
-    username: ${SERVICE_DATABASE_USERNAME:mixer-gateway}
-    password: ${SERVICE_DATABASE_PASSWORD:mixer-gateway}
 
 logging:
   level:
@@ -73,10 +69,6 @@ mixer-gateway:
           paths:
             - /versions
             - /availability
-        # TODO uncomment
-        #- name: community-v1
-        #  paths:
-        #    - /comments/*
         - name: player-v1
           paths:
             - /player/*/play
