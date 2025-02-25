@@ -19,27 +19,11 @@
 
     <properties>
         <java.version>17</java.version>
-
-        <!-- Bom -->
         <spring-cloud-dependencies.version>2023.0.1</spring-cloud-dependencies.version>
-
-        <!-- Dependencies -->
-        <firebase.version>9.3.0</firebase.version>
         <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
-        <jetbrains-annotations.version>24.1.0</jetbrains-annotations.version>
-        <logbook.version>3.9.0</logbook.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
-        <openapi4j.version>1.0.7</openapi4j.version>
-        <hibernate.version>6.4.4.Final</hibernate.version>
-
-        <!-- Test -->
-        <instancio.version>4.8.0</instancio.version>
-        <testcontainers.version>1.19.8</testcontainers.version>
-        <wiremock.version>3.6.0</wiremock.version>
-
-        <!-- Plugins -->
-        <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
         <openapi-generator-maven-plugin.version>7.5.0</openapi-generator-maven-plugin.version>
+        <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
     </properties>
 
     <dependencyManagement>
@@ -55,78 +39,51 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Starters -->
+        <!-- Spring Boot Starters -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
-        <!-- Logging -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.zalando</groupId>
-            <artifactId>logbook-spring-boot-starter</artifactId>
-            <version>${logbook.version}</version>
-        </dependency>
-
-        <!-- Database -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate.orm</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
-
-        <!-- Jakarta Persistence -->
-        <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-
-        <!-- Validation -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.openapi4j</groupId>
-            <artifactId>openapi-operation-servlet</artifactId>
-            <version>${openapi4j.version}</version>
-        </dependency>
 
-        <!-- Security -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
-        <!-- REST integration -->
+        <!-- Cloud -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-micrometer</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+        </dependency>
+
+        <!-- Firebase -->
+        <dependency>
+            <groupId>com.google.firebase</groupId>
+            <artifactId>firebase-admin</artifactId>
+            <version>9.3.0</version>
+        </dependency>
+
+        <!-- Utils -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -136,34 +93,6 @@
             <groupId>org.openapitools</groupId>
             <artifactId>jackson-databind-nullable</artifactId>
             <version>${jackson-databind-nullable.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.firebase</groupId>
-            <artifactId>firebase-admin</artifactId>
-            <version>${firebase.version}</version>
-        </dependency>
-
-        <!-- Util -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
-        </dependency>
-
-        <!-- Development -->
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>${jetbrains-annotations.version}</version>
         </dependency>
 
         <!-- Test -->
@@ -185,26 +114,8 @@
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>${testcontainers.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
             <artifactId>mongodb</artifactId>
             <version>${testcontainers.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.instancio</groupId>
-            <artifactId>instancio-junit</artifactId>
-            <version>${instancio.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.wiremock</groupId>
-            <artifactId>wiremock-standalone</artifactId>
-            <version>${wiremock.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -245,11 +156,6 @@
                             <artifactId>lombok-mapstruct-binding</artifactId>
                             <version>${lombok-mapstruct-binding.version}</version>
                         </path>
-                        <path>
-                            <groupId>org.hibernate.orm</groupId>
-                            <artifactId>hibernate-jpamodelgen</artifactId>
-                            <version>${hibernate.version}</version>
-                        </path>
                     </annotationProcessorPaths>
                     <compilerArgs>
                         <arg>-Amapstruct.suppressGeneratorTimestamp=true</arg>
@@ -285,189 +191,6 @@
                             <inputSpec>${project.basedir}/src/main/resources/static/endpoints/api-v1.yaml</inputSpec>
                             <modelPackage>fm.mixer.gateway.model</modelPackage>
                             <generateApis>false</generateApis>
-                        </configuration>
-                    </execution>
-                    <!-- Generate Controllers -->
-                    <execution>
-                        <id>Generate Application endpoints</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/static/endpoints/application-v1.yaml</inputSpec>
-                            <apiPackage>fm.mixer.gateway.module.app.api.v1</apiPackage>
-                            <modelPackage>fm.mixer.gateway.module.app.api.v1.model</modelPackage>
-                            <globalProperties>
-                                <supportingFiles>ApiUtil.java</supportingFiles>
-                            </globalProperties>
-                            <importMappings>
-                                <importMapping>PaginationMetadata=fm.mixer.gateway.model.PaginationMetadata</importMapping>
-                                <importMapping>UserReaction=fm.mixer.gateway.model.UserReaction</importMapping>
-                            </importMappings>
-                            <configOptions>
-                                <dateLibrary>java8-localdatetime</dateLibrary>
-                                <implicitHeaders>true</implicitHeaders>
-                                <delegatePattern>true</delegatePattern>
-                            </configOptions>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>Generate Auth endpoints</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/static/endpoints/auth-v1.yaml</inputSpec>
-                            <apiPackage>fm.mixer.gateway.module.auth.api.v1</apiPackage>
-                            <modelPackage>fm.mixer.gateway.module.auth.api.v1.model</modelPackage>
-                            <globalProperties>
-                                <supportingFiles>ApiUtil.java</supportingFiles>
-                            </globalProperties>
-                            <importMappings>
-                                <importMapping>PaginationMetadata=fm.mixer.gateway.model.PaginationMetadata</importMapping>
-                                <importMapping>UserReaction=fm.mixer.gateway.model.UserReaction</importMapping>
-                            </importMappings>
-                            <configOptions>
-                                <dateLibrary>java8-localdatetime</dateLibrary>
-                                <implicitHeaders>true</implicitHeaders>
-                                <delegatePattern>true</delegatePattern>
-                            </configOptions>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>Generate Community endpoints</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/static/endpoints/community-v1.yaml</inputSpec>
-                            <apiPackage>fm.mixer.gateway.module.community.api.v1</apiPackage>
-                            <modelPackage>fm.mixer.gateway.module.community.api.v1.model</modelPackage>
-                            <globalProperties>
-                                <supportingFiles>ApiUtil.java</supportingFiles>
-                            </globalProperties>
-                            <importMappings>
-                                <importMapping>PaginationMetadata=fm.mixer.gateway.model.PaginationMetadata</importMapping>
-                                <importMapping>UserReaction=fm.mixer.gateway.model.UserReaction</importMapping>
-                            </importMappings>
-                            <configOptions>
-                                <dateLibrary>java8-localdatetime</dateLibrary>
-                                <implicitHeaders>true</implicitHeaders>
-                                <delegatePattern>true</delegatePattern>
-                            </configOptions>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>Generate Mix endpoints</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/static/endpoints/mix-v1.yaml</inputSpec>
-                            <apiPackage>fm.mixer.gateway.module.mix.api.v1</apiPackage>
-                            <modelPackage>fm.mixer.gateway.module.mix.api.v1.model</modelPackage>
-                            <globalProperties>
-                                <supportingFiles>ApiUtil.java</supportingFiles>
-                            </globalProperties>
-                            <importMappings>
-                                <importMapping>PaginationMetadata=fm.mixer.gateway.model.PaginationMetadata</importMapping>
-                                <importMapping>UserReaction=fm.mixer.gateway.model.UserReaction</importMapping>
-                            </importMappings>
-                            <configOptions>
-                                <dateLibrary>java8-localdatetime</dateLibrary>
-                                <implicitHeaders>true</implicitHeaders>
-                                <delegatePattern>true</delegatePattern>
-                            </configOptions>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>Generate Player endpoints</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/static/endpoints/player-v1.yaml</inputSpec>
-                            <apiPackage>fm.mixer.gateway.module.player.api.v1</apiPackage>
-                            <modelPackage>fm.mixer.gateway.module.player.api.v1.model</modelPackage>
-                            <globalProperties>
-                                <supportingFiles>ApiUtil.java</supportingFiles>
-                            </globalProperties>
-                            <importMappings>
-                                <importMapping>PaginationMetadata=fm.mixer.gateway.model.PaginationMetadata</importMapping>
-                                <importMapping>UserReaction=fm.mixer.gateway.model.UserReaction</importMapping>
-                            </importMappings>
-                            <configOptions>
-                                <dateLibrary>java8-localdatetime</dateLibrary>
-                                <implicitHeaders>true</implicitHeaders>
-                                <delegatePattern>true</delegatePattern>
-                            </configOptions>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>Generate Search endpoints</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/static/endpoints/search-v1.yaml</inputSpec>
-                            <apiPackage>fm.mixer.gateway.module.search.api.v1</apiPackage>
-                            <modelPackage>fm.mixer.gateway.module.search.api.v1.model</modelPackage>
-                            <globalProperties>
-                                <supportingFiles>ApiUtil.java</supportingFiles>
-                            </globalProperties>
-                            <importMappings>
-                                <importMapping>PaginationMetadata=fm.mixer.gateway.model.PaginationMetadata</importMapping>
-                                <importMapping>UserReaction=fm.mixer.gateway.model.UserReaction</importMapping>
-                            </importMappings>
-                            <configOptions>
-                                <dateLibrary>java8-localdatetime</dateLibrary>
-                                <implicitHeaders>true</implicitHeaders>
-                                <delegatePattern>true</delegatePattern>
-                            </configOptions>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>Generate User endpoints</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/static/endpoints/user-v1.yaml</inputSpec>
-                            <apiPackage>fm.mixer.gateway.module.user.api.v1</apiPackage>
-                            <modelPackage>fm.mixer.gateway.module.user.api.v1.model</modelPackage>
-                            <globalProperties>
-                                <supportingFiles>ApiUtil.java</supportingFiles>
-                            </globalProperties>
-                            <importMappings>
-                                <importMapping>PaginationMetadata=fm.mixer.gateway.model.PaginationMetadata</importMapping>
-                                <importMapping>UserReaction=fm.mixer.gateway.model.UserReaction</importMapping>
-                            </importMappings>
-                            <configOptions>
-                                <dateLibrary>java8-localdatetime</dateLibrary>
-                                <implicitHeaders>true</implicitHeaders>
-                                <delegatePattern>true</delegatePattern>
-                            </configOptions>
-                        </configuration>
-                    </execution>
-                    <!-- Generate Feign Clients (integration) -->
-                    <execution>
-                        <id>Generate Test client</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/integration/test-v1.yaml</inputSpec>
-                            <apiPackage>fm.mixer.gateway.client</apiPackage>
-                            <modelPackage>fm.mixer.gateway.client.model</modelPackage>
-                            <modelNameSuffix>Dto</modelNameSuffix>
-                            <configOptions>
-                                <library>spring-cloud</library>
-                            </configOptions>
-                            <additionalProperties>
-                                <additionalProperty>feignClient=Lambda</additionalProperty>
-                                <additionalProperty>retryable=false</additionalProperty>
-                                <useBeanValidation>false</useBeanValidation>
-                            </additionalProperties>
                         </configuration>
                     </execution>
                 </executions>
