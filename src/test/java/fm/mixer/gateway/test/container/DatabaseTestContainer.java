@@ -1,13 +1,13 @@
 package fm.mixer.gateway.test.container;
 
-import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.containers.MongoDBContainer;
 
-public class DatabaseTestContainer extends PostgreSQLContainer<DatabaseTestContainer> {
+public class DatabaseTestContainer extends MongoDBContainer {
 
     private static volatile DatabaseTestContainer container;
 
     private DatabaseTestContainer() {
-        super("postgres:alpine");
+        super("mongo:latest");
     }
 
     public static DatabaseTestContainer getInstance() {
@@ -27,9 +27,7 @@ public class DatabaseTestContainer extends PostgreSQLContainer<DatabaseTestConta
         super.start();
 
         // Sets properties that are referenced in application.yml
-        System.setProperty("SERVICE_DATABASE_URL", container.getJdbcUrl());
-        System.setProperty("SERVICE_DATABASE_USERNAME", container.getUsername());
-        System.setProperty("SERVICE_DATABASE_PASSWORD", container.getPassword());
+        System.setProperty("DATABASE_URL", getReplicaSetUrl());
     }
 
     @Override
