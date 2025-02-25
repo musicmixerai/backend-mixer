@@ -74,8 +74,13 @@ public class PlayerService {
 
         // User is first time playing this mix or mix must be shuffled
         final var mix = mixRepository.findByIdentifierWithTracks(mixId).orElseThrow(ResourceNotFoundException::new);
+        final var firstTrack = mix.getTracks().isEmpty() ? null : mix.getTracks().get(0);
 
-        mapper.toPlaySessionEntity(session, user, mix, mix.getTracks().getFirst());
+        if (firstTrack == null) {
+            throw new ResourceNotFoundException();
+        }
+
+        mapper.toPlaySessionEntity(session, user, mix, firstTrack);
         session.setTracks(mapper.toMixTracksString(mix.getTracks()));
 
         repository.save(session);
