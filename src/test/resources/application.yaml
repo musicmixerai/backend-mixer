@@ -3,21 +3,17 @@ server:
 
 spring:
   application.name: mixer-gateway
-  jpa.show-sql: true
+  data:
+    mongodb:
+      uri: ${DATABASE_URL:mongodb://localhost:27017/mixerfm-test}
   cloud:
     openfeign:
       circuitbreaker:
         enabled: true
-  liquibase:
-    change-log: database/test-changelogs.xml
-    enabled: true
+  liquibase.enabled: false
   jpa.open-in-view: false
   thymeleaf.check-template-location: false
   jackson.default-property-inclusion: non_null
-  datasource:
-    url: ${SERVICE_DATABASE_URL:jdbc:postgresql://localhost:15430/mixer-gateway}
-    username: ${SERVICE_DATABASE_USERNAME:mixer-gateway}
-    password: ${SERVICE_DATABASE_PASSWORD:mixer-gateway}
 
 logging:
   level:
@@ -35,7 +31,8 @@ logbook:
           - GET
 
 mixer-gateway:
-  security.enabled: false
+  security:
+    enabled: false
   circuitbreaker:
     timelimiter.timeout-duration: 1m
     ignore-exceptions:
@@ -49,10 +46,7 @@ mixer-gateway:
         - name: application-v1
           paths:
             - /versions
-        # TODO uncomment
-        #- name: community-v1
-        #  paths:
-        #    - /comments/**
+            - /availability
         - name: player-v1
           paths:
             - /player/**
