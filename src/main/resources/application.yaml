@@ -18,7 +18,6 @@ spring:
     openfeign:
       circuitbreaker:
         enabled: true
-  liquibase.enabled: false
   jpa.open-in-view: false
   thymeleaf.check-template-location: false
   jackson.default-property-inclusion: non_null
